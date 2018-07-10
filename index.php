@@ -1,17 +1,52 @@
 <?php
 	include "koneksi.php";
+	include "readNope.php";
+
+	// $x = read_no($conn,$dbname,085655009393);
+	// var_dump($x);
+	// var_dump(read_no($conn,$dbname,085655009393));
+	// var_dump(read_no($conn,$dbname,085655009393));
+	// exit();
 ?>
 <html>
 <head>
 	<title>Registrasi</title>
 
-	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 
 	<meta property="og:title" content="Registrasi" />
 	<meta property="og:description" content="Registrasi Untuk Mendapatkan OrderLink" />
 	<meta name="og:image" content="http://hatiku-umrah.com/wa/gambar/Registrasi.png" />
+
+	<script type="text/javascript">
+		function validasiNope() {
+			$.ajax({
+				url:'validasiNope.php',
+				data:{
+					'no':$('#no').val()
+				},type:'post',
+				dataType:'json',
+				success:function(ret){
+					console.log(ret);
+					// if($.isNumeric(ret.nomor)){
+					if(ret.warning==null){
+						$('#validasiWarning').attr('style','color:green');
+						$('#validasiWarning').html(ret.nomor+' (negara:'+ret.negara+')');
+					} else {
+						$('#validasiWarning').attr('style','color:red');
+						$('#validasiWarning').html(ret.warning);
+					}
+
+				}, error : function (xhr, status, errorThrown) {
+						console.log('['+xhr.status+'] '+errorThrown);
+				}
+			});
+		}
+
+	</script>
+
 
 </head>
 	<body>
@@ -63,8 +98,10 @@
 						<div class="form-group row">
 							<label for="no" class="col-sm-2 col-form-label">Nomor WhatsApp</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="no" placeholder="08xx xxxx" required/>
+								<input xonchange="validasiNope();" type="text" class="form-control" name="no" id="no" placeholder="08xx xxxx" required/>
 							</div>
+							<label for="no" class="col-sm-2 col-form-label"></label>
+							<span id="validasiWarning" style="color:red;" class="col-sm-10"></span>
 						</div>
 
 						<div class="form-group row">
@@ -75,8 +112,22 @@
 						</div>
 
 						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Tipe</label>
+							<div class="col-sm-10">
+								<select class="form-control" name="tipe">
+									<?php
+										$QryPrm = mysqli_query($conn,"select * FROM parameter WHERE param1='pesanwa' order by param3 asc");
+										while ($data=mysqli_fetch_assoc($QryPrm)){
+											echo "<option value='".$data['id_param']."'>".$data['nama']."</option>";
+										}
+									?>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group row">
 	        		<div class="offset-sm-2 col-sm-10">
-      					<input type="submit" id="submit" value="Daftar" class="btn btn-info" />
+      					<input type="submit" name="submit" id="submit" value="Daftar" class="btn btn-info" />
       				</div>
         		</div>
 					</form>
@@ -91,5 +142,4 @@
 		</form> -->
 
 	</body>
-
 </html>
