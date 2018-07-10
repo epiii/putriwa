@@ -47,7 +47,6 @@ if (!isset($_POST['submit'])) {
 		$move=move_uploaded_file($_FILES['gambar']['tmp_name'],'gambar/'.$fileName);
 		$sql = "insert into orderlink (nama_dpn,nama_blk,kodeNeg,nomor,username,gambar,tipe)
 						values ('$namadpn','$namablk','$neg','$no','$userBaru','gambar/$fileName','$tipe')";
-						// print_r($sql);exit();
 		$query=mysqli_query($conn,$sql);
 
 		if(!$query){
@@ -65,11 +64,9 @@ if (!isset($_POST['submit'])) {
 		// full URL
 			$url = $mainUrl.$subUrl.$userBaru;
 			// <p><a target="_blank" href="http://hatiku-umrah.com/wa/'.$userBaru.'">http://hatiku-umrah.com/wa/'.$userBaru.'</a></p>
-
 			echo '
 				<div class="pageLoader"></div>
 				<br />
-
 				<div class="container">
 					<div class="card">
 						<div class="card-body" style="text-align:center;">
