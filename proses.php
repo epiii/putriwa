@@ -1,11 +1,12 @@
-<!-- <html>
-<head>
-	<title> Registrasi Berhasil </title>
-	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-</head>
-<body> -->
+<html>
+	<head>
+		<title> Registrasi Berhasil </title>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+	</head>
+	<body>
+
 <?php
 	//error_reporting(0);
 	// print_r($_FILES);
@@ -19,9 +20,9 @@
 	$gambar=$_POST['gambar'];
 	$negara=$_POST['negara'];
 
-	$a=trim($namadpn," ");
-	echo $namadpn." ".$namablk." ".$no." ".$negara." ".$a;
-
+	// $a=trim($namadpn," ");
+	// echo $namadpn." ".$namablk." ".$no." ".$negara." ".$a;
+	//
 
 	$fileName=$_FILES['gambar']['name'];
 	$fileSize=$_FILES['gambar']['size'];
@@ -63,13 +64,12 @@
 				</div>
 			';
 		}
+	}	else {
+		echo "<script> alert('Foto Belum Dimasukkan');
+		window.location='./'</script>";
+		// window.location='index.php'</script>";
 	}
-	// else {
-	// 	echo "<script> alert('Foto Belum Dimasukkan');
-	// 	window.location='./'</script>";
-	// 	// window.location='index.php'</script>";
-	// }
 
 ?>
-<!-- </body>
-</html> -->
+	</body>
+</html>
